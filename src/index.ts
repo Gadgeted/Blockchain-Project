@@ -56,7 +56,8 @@ export default Canister({
     }),
 
     //we get specific message from the message storage, we provide the uuid
-    logIn: update([LoginPayload], Result(Message, Error), (loginPayload) => {
+    logIn: update([LoginPayload], Result(Message, Error),
+     (email, password) => {
 
         const allUsers = messagesStorage.values();
 
@@ -64,7 +65,10 @@ export default Canister({
             return "LogIn Success"
         }
         else{
-            return Err({ NotFound: `couldn't update the user details with id=${id}. user not found` });
+            return Err({
+                 NotFound:
+                  `couldn't update the user details with 
+                  email=${email}. user not found` });
         }
     }),
 
