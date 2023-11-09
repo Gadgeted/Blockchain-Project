@@ -1,0 +1,7 @@
+service: () -> {
+    deleteUser: (text) -> (variant {Ok:record {id:text; password:text; createdAt:nat64; email:text; updatedAt:opt nat64}; Err:variant {InvalidPayload:text; NotFound:text}});
+    logIn: (record {password:text; email:text}) -> (variant {Ok:record {id:text; password:text; createdAt:nat64; email:text; updatedAt:opt nat64}; Err:variant {InvalidPayload:text; NotFound:text}});
+    updateDetails: (text, record {password:text; email:text}) -> (variant {Ok:record {id:text; password:text; createdAt:nat64; email:text; updatedAt:opt nat64}; Err:variant {InvalidPayload:text; NotFound:text}});
+    userSignUp: (record {password:text; email:text}) -> (variant {Ok:record {id:text; password:text; createdAt:nat64; email:text; updatedAt:opt nat64}; Err:variant {InvalidPayload:text; NotFound:text}});
+    viewMembers: () -> (variant {Ok:vec record {id:text; password:text; createdAt:nat64; email:text; updatedAt:opt nat64}; Err:variant {InvalidPayload:text; NotFound:text}}) query;
+}
