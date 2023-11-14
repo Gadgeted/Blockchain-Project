@@ -1,7 +1,19 @@
-service: () -> {
-    deleteUser: (text) -> (variant {Ok:record {id:text; password:text; createdAt:nat64; email:text; updatedAt:opt nat64}; Err:variant {InvalidPayload:text; NotFound:text}});
-    logIn: (record {password:text; email:text}) -> (variant {Ok:record {id:text; password:text; createdAt:nat64; email:text; updatedAt:opt nat64}; Err:variant {InvalidPayload:text; NotFound:text}});
-    updateDetails: (text, record {password:text; email:text}) -> (variant {Ok:record {id:text; password:text; createdAt:nat64; email:text; updatedAt:opt nat64}; Err:variant {InvalidPayload:text; NotFound:text}});
-    userSignUp: (record {password:text; email:text}) -> (variant {Ok:record {id:text; password:text; createdAt:nat64; email:text; updatedAt:opt nat64}; Err:variant {InvalidPayload:text; NotFound:text}});
-    viewMembers: () -> (variant {Ok:vec record {id:text; password:text; createdAt:nat64; email:text; updatedAt:opt nat64}; Err:variant {InvalidPayload:text; NotFound:text}}) query;
+type Error = variant { InvalidPayload : text; NotFound : text };
+type LoginPayload = record { password : text; email : text };
+type Message = record {
+  id : text;
+  password : text;
+  createdAt : nat64;
+  email : text;
+  updatedAt : opt nat64;
+};
+type _AzleResult = variant { Ok : Message; Err : Error };
+type _AzleResult_1 = variant { Ok : text; Err : Error };
+type _AzleResult_2 = variant { Ok : vec Message; Err : Error };
+service : () -> {
+  deleteUser : (text) -> (_AzleResult);
+  logIn : (LoginPayload) -> (_AzleResult_1);
+  updateDetails : (text, LoginPayload) -> (_AzleResult);
+  userSignUp : (LoginPayload) -> (_AzleResult);
+  viewMembers : () -> (_AzleResult_2) query;
 }
